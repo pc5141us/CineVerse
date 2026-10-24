@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>مشاهدة وتحميل الفيلم | CineVerse</title>
+  
+  <!-- خطوط Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  
+  <!-- درع منع الإعلانات والنوافذ المنبثقة -->
+  <script src="js/anti-ad.js"></script>
+
+  <!-- التنسيقات -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- طبقة إطفاء الأنوار التفاعلية (Lights-Off Mode) -->
+  <div id="lightsOffOverlay" class="lights-off-overlay"></div>
+
+  <!-- الهيدر -->
+  <header class="site-header">
+    <div class="header-container">
+      <a href="index.html" class="brand-logo">
+        <div class="brand-icon">🎬</div>
+        <div class="brand-text">
+          <span class="brand-title">CineVerse</span>
+          <span class="brand-subtitle">سينما الأفلام الأجنبية 4K</span>
+        </div>
+      </a>
+
+      <!-- بادج حظر الإعلانات النشط -->
+      <div class="adshield-badge" title="نظام حظر الإعلانات والنوافذ المنبثقة نشط تلقائياً لحمايتك">
+        <span class="adshield-icon">🛡️</span>
+        <span class="adshield-text">تم حظر الإعلانات والنوافذ المنبثقة 100%</span>
+      </div>
+
+      <div class="header-actions">
+        <a href="index.html" class="nav-btn">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          <span>الرئيسية</span>
+        </a>
+        <a href="admin.html" class="nav-btn">
+          <span>إدارة الأفلام</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ========================================================================
+       شاشة المشاهدة والمسرح السينمائي (Cinema Theater Player)
+       ======================================================================== -->
+  <div class="theater-container">
+    
+    <!-- شريط العودة والتنقل -->
+    <div class="back-to-home-bar">
+      <a href="index.html" class="back-link">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+        <span>العودة إلى مكتبة الأفلام</span>
+      </a>
+
+      <div style="display: flex; gap: 0.65rem;">
+        <button type="button" id="watchFavBtn" class="nav-btn">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+          <span>إضافة للمفضلة</span>
+        </button>
+        <button type="button" id="watchShareBtn" class="nav-btn">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+          <span>مشاركة الفيلم</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- شاشة مشغل الفيديو العملاقة الخالية من الإعلانات -->
+    <div id="playerTheaterWrapper" class="player-theater-wrapper">
+      <div class="video-frame-box">
+        <!-- مؤشر التحميل -->
+        <div id="playerSpinner" class="player-loading-spinner">
+          <div class="spinner"></div>
+          <div style="font-size: 0.95rem; color: #fff; font-weight: 600;">جاري تحميل المشغل بدون إعلانات...</div>
+        </div>
+
+        <!-- مشغل فيديو HTML5 داخلي نقي 100% -->
+        <video id="nativeVideoPlayer" class="streaming-video" controls playsinline preload="metadata" style="display: none; width: 100%; height: 100%; background: #000; object-fit: contain;">
+          <source src="" type="video/mp4">
+          متصفحك لا يدعم مشغل الفيديو المباشر.
+        </video>
+
+        <!-- مشغل Iframe محمي بخاصية Sandbox لحظر جميع الإعلانات والنوافذ المنبثقة والتحويلات -->
+        <iframe id="streamingIframe" class="streaming-iframe" src="" sandbox="allow-scripts allow-same-origin allow-forms allow-presentation" referrerpolicy="no-referrer" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      </div>
+    </div>
+
+    <!-- شريط سيرفرات المشاهدة والأدوات -->
+    <div class="servers-bar-wrapper">
+      <div class="servers-label">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--accent-gold)" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+        <span>سيرفرات المشاهدة (خالية من الإعلانات):</span>
+      </div>
+
+      <div id="serversTabsList" class="servers-tabs-list"></div>
+
+      <div class="player-tools">
+        <button type="button" id="lightsOffBtn" class="player-tool-btn" title="وضع السينما">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+          إطفاء الأنوار
+        </button>
+
+        <button type="button" id="reloadServerBtn" class="player-tool-btn" title="تحديث السيرفر">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+          تحديث السيرفر
+        </button>
+
+        <button type="button" id="fullscreenBtn" class="player-tool-btn" title="تكبير المشغل">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg>
+          ملء الشاشة
+        </button>
+      </div>
+    </div>
+
+    <!-- ======================================================================
+         تفاصيل ومعلومات الفيلم (Movie Overview & Details)
+         ====================================================================== -->
+    <div class="movie-watch-details-grid">
+      <!-- جانب البوستر -->
+      <div class="watch-poster-side">
+        <img id="watchPosterImg" src="" alt="">
+      </div>
+
+      <!-- جانب المعلومات -->
+      <div class="watch-info-side">
+        <h1 id="watchMovieTitle" class="watch-movie-title"></h1>
+        <div id="watchMovieEnTitle" class="watch-movie-en-title"></div>
+
+        <div id="watchMetaBadges" class="watch-meta-badges"></div>
+
+        <div class="watch-story-box">
+          <div class="watch-story-title">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--accent-red)" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            <span>قصة الفيلم:</span>
+          </div>
+          <p id="watchStoryText" class="watch-story-text"></p>
+        </div>
+
+        <!-- جدول المواصفات -->
+        <div id="watchSpecsGrid" class="watch-specs-grid"></div>
+
+        <!-- الممثلون وطاقم العمل -->
+        <div style="margin-top: 0.5rem;">
+          <div style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.85rem; color: #fff;">أبطال الفيلم وطاقم التمثيل:</div>
+          <div id="watchCastRow" class="cast-row"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ======================================================================
+         سيرفرات وروابط التحميل المباشر (Direct Download Section)
+         ====================================================================== -->
+    <div class="download-section-box" id="downloadSection">
+      <div class="download-header">
+        <div class="download-title">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="var(--accent-cyan)" stroke-width="2.2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          <span>تحميل الفيلم بروابط مباشرة وسريعة:</span>
+        </div>
+        <div style="font-size: 0.85rem; color: var(--text-muted);">
+          اختر الجودة المناسبة لجهازك وسرعة اتصالك (روابط مباشرة خالية من الإعلانات)
+        </div>
+      </div>
+
+      <div id="downloadCardsList" class="download-cards-list"></div>
+    </div>
+
+    <!-- ======================================================================
+         قسم التعليقات والمراجعات (Reviews & Comments)
+         ====================================================================== -->
+    <div class="comments-section">
+      <div class="download-header">
+        <div class="download-title">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--accent-gold)" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          <span>تقييمات وآراء المشاهدين:</span>
+        </div>
+      </div>
+
+      <form id="commentForm" class="comment-form">
+        <div class="comment-inputs-row">
+          <input type="text" id="commentNameInput" class="comment-input" placeholder="اسمك أو لقبك..." required>
+          <select id="commentRatingSelect" class="comment-input" style="flex: 0 0 160px;">
+            <option value="10">تقييمك: ★ 10/10 ممتاز</option>
+            <option value="9">تقييمك: ★ 9/10 رائع جداً</option>
+            <option value="8">تقييمك: ★ 8/10 جيد جداً</option>
+            <option value="7">تقييمك: ★ 7/10 جيد</option>
+            <option value="6">تقييمك: ★ 6/10 متوسط</option>
+            <option value="5">تقييمك: ★ 5/10 دون المستوى</option>
+          </select>
+        </div>
+        <textarea id="commentTextInput" class="comment-textarea" placeholder="اكتب رأيك وانطباعك عن الفيلم (بدون حرق للأحداث)..." required></textarea>
+        <div>
+          <button type="submit" class="btn-hero play" style="padding: 0.65rem 1.6rem; font-size: 0.92rem;">
+            نشر التقييم والمراجعة
+          </button>
+        </div>
+      </form>
+
+      <div id="commentsList" class="comments-list"></div>
+    </div>
+
+    <!-- ======================================================================
+         أفلام مشابهة ومقترحة (Related Movies)
+         ====================================================================== -->
+    <div class="section-header" style="margin-top: 3.5rem;">
+      <h2 class="section-title">
+        <span>قد يعجبك أيضاً (أفلام مقترحة)</span>
+      </h2>
+    </div>
+    <div id="relatedMoviesGrid" class="movies-grid"></div>
+
+  </div>
+
+  <!-- حاوية التنبيهات السريعة (Toasts) -->
+  <div id="toastContainer" class="toast-container"></div>
+
+  <!-- الفوتر -->
+  <footer class="site-footer">
+    <div class="footer-container">
+      <div class="footer-bottom">
+        <div>جميع الحقوق محفوظة © 2026 CineVerse - موقع أفلام أجنبية عصري ومنسق خالي تماماً من الإعلانات</div>
+        <div>مشاهدة ممتعة ونقية 100% 🍿</div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ملفات الجافاسكريبت -->
+  <script src="js/movies-data.js"></script>
+  <script src="js/watch.js"></script>
+</body>
+</html>

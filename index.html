@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CineVerse | أقوى موقع لمشاهدة وتحميل الأفلام الأجنبية المترجمة 4K</title>
+  <meta name="description" content="منصة سينمائية عصرية لمشاهدة وتحميل أحدث الأفلام الأجنبية بدقة 4K و 1080p مع سيرفرات متعددة سريعة وترجمة احترافية كاملة.">
+  
+  <!-- خطوط Google Fonts العصرية -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  
+  <!-- درع منع الإعلانات والنوافذ المنبثقة -->
+  <script src="js/anti-ad.js"></script>
+
+  <!-- ملف التنسيقات الرئيسي -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- ========================================================================
+       الهيدر وشريط التنقل العلوي (Header & Navbar)
+       ======================================================================== -->
+  <header class="site-header" id="siteHeader">
+    <div class="header-container">
+      
+      <!-- شعار الموقع -->
+      <a href="index.html" class="brand-logo">
+        <div class="brand-icon">🎬</div>
+        <div class="brand-text">
+          <span class="brand-title">CineVerse</span>
+          <span class="brand-subtitle">سينما الأفلام الأجنبية 4K</span>
+        </div>
+      </a>
+
+      <!-- بادج حظر الإعلانات النشط -->
+      <div class="adshield-badge" title="نظام حظر الإعلانات والنوافذ المنبثقة نشط تلقائياً لحمايتك">
+        <span class="adshield-icon">🛡️</span>
+        <span class="adshield-text">تم حظر الإعلانات والنوافذ المنبثقة 100%</span>
+      </div>
+
+      <!-- شريط البحث المباشر السريع -->
+      <div class="search-wrapper">
+        <div class="search-bar">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+          <input type="text" id="searchInput" class="search-input" placeholder="ابحث عن فيلمك المفضل، الممثل، أو التصنيف..." autocomplete="off">
+          <button type="button" id="searchClearBtn" class="search-clear-btn" title="مسح">✕</button>
+        </div>
+        <!-- نتائج البحث المنسدلة التلقائية -->
+        <div id="searchResultsDropdown" class="search-results-dropdown"></div>
+      </div>
+
+      <!-- أزرار الهيدر -->
+      <div class="header-actions">
+        <button type="button" id="watchlistNavBtn" class="nav-btn" title="الأفلام المحفوظة">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+          <span>قائمتي</span>
+          <span id="watchlistCountBadge" class="badge-count">0</span>
+        </button>
+
+        <a href="admin.html" class="nav-btn" title="لوحة إدارة وإضافة الأفلام">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+          <span>إدارة الأفلام</span>
+        </a>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- ========================================================================
+       قسم البانر السينمائي التفاعلي (Hero Banner Slider)
+       ======================================================================== -->
+  <section class="hero-section">
+    <div id="heroSlider" class="hero-slider-container"></div>
+    <div id="sliderDots" class="slider-dots"></div>
+  </section>
+
+  <!-- ========================================================================
+       المحتوى الرئيسي: الفلترة وشبكة الأفلام
+       ======================================================================== -->
+  <main class="container">
+    
+    <!-- شريط التصفية والفلترة الذكي -->
+    <section class="filter-section">
+      <div class="filter-header">
+        <div class="filter-title">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--accent-gold)" stroke-width="2.2"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>
+          <span>تصنيفات وفلاتر السينما:</span>
+        </div>
+
+        <div class="filter-controls">
+          <!-- ترتيب حسب -->
+          <select id="sortSelect" class="custom-select" title="ترتيب حسب">
+            <option value="latest">الأحدث إصداراً</option>
+            <option value="rating">الأعلى تقييماً (IMDb)</option>
+            <option value="title">أبجدياً (A-Z)</option>
+          </select>
+
+          <!-- فلترة السنة -->
+          <select id="yearSelect" class="custom-select" title="سنة الإصدار">
+            <option value="الكل">جميع السنوات</option>
+          </select>
+
+          <!-- فلترة الجودة -->
+          <select id="qualitySelect" class="custom-select" title="جودة العرض">
+            <option value="الكل">جميع الجودات</option>
+            <option value="4K">دقة 4K UHD</option>
+            <option value="1080p">دقة 1080p BluRay</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- شرائح التصنيفات (Genres) -->
+      <div id="genrePills" class="genre-pills-row"></div>
+    </section>
+
+    <!-- عنوان شبكة الأفلام -->
+    <div class="section-header">
+      <h2 class="section-title">
+        <span>أقوى الأفلام الأجنبية</span>
+      </h2>
+      <div id="moviesCount" class="movies-count-badge">0 فيلم</div>
+    </div>
+
+    <!-- شبكة كروت الأفلام المتناسقة -->
+    <div id="moviesGrid" class="movies-grid"></div>
+
+  </main>
+
+  <!-- ========================================================================
+       نافذة الإعلان الترويجي (Trailer Modal)
+       ======================================================================== -->
+  <div id="trailerModal" class="modal-backdrop">
+    <div class="modal-box">
+      <button type="button" id="modalCloseBtn" class="modal-close-btn" title="إغلاق">✕</button>
+      <div style="padding: 1.25rem 1.5rem; border-bottom: 1px solid var(--border-subtle);">
+        <h3 id="trailerTitle" style="font-size: 1.15rem; color: #fff;">الإعلان الترويجي</h3>
+      </div>
+      <div style="position: relative; width: 100%; aspect-ratio: 16/9; background: #000;">
+        <iframe id="trailerFrame" src="" style="position: absolute; inset: 0; width: 100%; height: 100%; border: none;" sandbox="allow-scripts allow-same-origin allow-forms allow-presentation" referrerpolicy="no-referrer" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      </div>
+    </div>
+  </div>
+
+  <!-- حاوية التنبيهات السريعة (Toasts) -->
+  <div id="toastContainer" class="toast-container"></div>
+
+  <!-- ========================================================================
+       الفوتر السفلي (Footer)
+       ======================================================================== -->
+  <footer class="site-footer">
+    <div class="footer-container">
+      <div class="footer-top">
+        <div>
+          <div class="brand-logo">
+            <div class="brand-icon">🎬</div>
+            <div class="brand-text">
+              <span class="brand-title">CineVerse</span>
+              <span class="brand-subtitle">سينما الأفلام الأجنبية 4K</span>
+            </div>
+          </div>
+          <p class="footer-about-text">
+            المنصة العربية الأولى المتخصصة في تقديم أحدث وأقوى الأفلام الأجنبية وهوليوود بجودة فائقة 4K HDR و 1080p BluRay، مع ترجمات دقيقة وسيرفرات بث ومشاهدة فائقة السرعة وروابط تحميل مباشرة متعددة.
+          </p>
+        </div>
+
+        <div>
+          <h4 class="footer-col-title">أقسام الموقع</h4>
+          <ul class="footer-links-list">
+            <li><a href="index.html" class="footer-link">الرئيسية</a></li>
+            <li><a href="index.html" class="footer-link">أحدث الأفلام 2024 - 2026</a></li>
+            <li><a href="index.html" class="footer-link">الأعلى تقييماً عالمياً</a></li>
+            <li><a href="admin.html" class="footer-link">لوحة إدارة الأفلام</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="footer-col-title">أشهر التصنيفات</h4>
+          <ul class="footer-links-list">
+            <li><a href="#" class="footer-link">أفلام أكشن وإثارة</a></li>
+            <li><a href="#" class="footer-link">أفلام خيال علمي وفضاء</a></li>
+            <li><a href="#" class="footer-link">أفلام رعب وغموض</a></li>
+            <li><a href="#" class="footer-link">أفلام دراما وسيرة ذاتية</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="footer-col-title">ميزات المنصة</h4>
+          <ul class="footer-links-list">
+            <li class="footer-link">⚡ سيرفرات مشاهدة سريعة VIP بدون تقطيع</li>
+            <li class="footer-link">📥 روابط تحميل متعددة الجودات (4K, 1080p, 720p)</li>
+            <li class="footer-link">🌙 وضع السينما وإطفاء الأنوار التفاعلي</li>
+            <li class="footer-link">📱 تصميم متناسق ومريح لجميع الهواتف والشاشات</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div>جميع الحقوق محفوظة © 2026 CineVerse - موقع أفلام أجنبية عصري ومنسق</div>
+        <div>صُمم بأحدث معايير الويب لتقديم تجربة سينمائية لا مثيل لها 🍿</div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ملفات الجافاسكريبت -->
+  <script src="js/movies-data.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

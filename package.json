@@ -1,0 +1,13 @@
+{
+  "name": "cineverse-movies",
+  "version": "1.0.0",
+  "description": "منصة أفلام أجنبية عصرية ومنسقة بدقة 4K مع سيرفرات مشاهدة وتحميل مباشر",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "build": "echo 'Static site ready for Vercel'"
+  },
+  "keywords": ["movies", "streaming", "cinema", "films", "arabic", "cinema-ui", "vercel"],
+  "author": "",
+  "license": "MIT"
+}
